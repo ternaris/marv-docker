@@ -1,0 +1,28 @@
+From e9c9e4460f5b02cdee9f30fcd91f4c09d7a6d0bd Mon Sep 17 00:00:00 2001
+From: Florian Friesdorf <florian@ternaris.com>
+Date: Mon, 19 Feb 2018 23:30:58 +0100
+Subject: [PATCH] exclusive create of sessionkey file checks for proper errno
+
+---
+ marv/app/__init__.py | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/marv/app/__init__.py b/marv/app/__init__.py
+index b3424b1..262c1d9 100644
+--- a/marv/app/__init__.py
++++ b/marv/app/__init__.py
+@@ -29,8 +29,9 @@ def create_app(site, config_obj=None, app_root=None, checkdb=False, **kw):
+     try:
+         fd = os.open(site.config.marv.sessionkey_file,
+                      os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o666)
+-    except OSError:
+-        pass
++    except OSError as e:
++        if e.errno != 17:
++            raise
+     else:
+         with os.fdopen(fd, 'w') as f:
+             f.write(str(uuid4()))
+-- 
+2.15.1
+
