@@ -7,6 +7,8 @@ cd "$(dirname "$(realpath "$0")")"
 VAR="$PWD/../marv-site-var"
 ETC="$PWD/etc"
 ADDONS="$PWD/addons"
+HTTP="${MARV_HTTP:-127.0.0.1:8000}"
+HTTPS="${MARV_HTTPS:-127.0.0.1:8443}"
 
 [[ -d "$MARV_SCANROOT" ]] || (
     echo "Please set MARV_SCANROOT to directory containing your bags"
@@ -24,8 +26,8 @@ docker run \
        --hostname marvce \
        --restart unless-stopped \
        --detach \
-       -p "127.0.0.1:8000:8000" \
-       -p "127.0.0.1:8443:8443" \
+       -p "$HTTP:8000" \
+       -p "$HTTPS:8443" \
        -v "$ETC:/etc/marv" \
        -v "$(realpath "$ADDONS"):/opt/marv/addons" \
        -v "$(realpath "$MARV_SCANROOT"):/scanroot" \
