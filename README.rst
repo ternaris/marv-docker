@@ -1,16 +1,14 @@
-Experimental docker container for MARV Community Edition
-========================================================
+Example MARV site
+=================
 
-See also:
+This is an exemplary setup of a MARV site using the experimental MARV Community Edition docker image.
 
-- MARV Robotics `website <https://ternaris.com/marv-robotics/>`_
-- MARV Robotics `documentation <https://ternaris.com/marv-robotics/docs/>`_
+The published docker image is built with the contained `<./.dockerfile>`_.
 
+This is meant for easy evaluation and publication of working examples for issues.
 
 Setup
 -----
-
-This is experimental and meant only for easy evaluation of MARV.
 
 Generate self-signed certificate::
    
@@ -41,3 +39,10 @@ Errors
 
 This means uwsgi could not find the SSL certificate which should be
 right next to ``etc/uwsgi.conf`` (see above).
+
+
+Further reading
+---------------
+
+- MARV Robotics `website <https://ternaris.com/marv-robotics/>`_
+- MARV Robotics `documentation <https://ternaris.com/marv-robotics/docs/>`_

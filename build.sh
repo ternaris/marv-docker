@@ -4,7 +4,7 @@ set -e
 
 cd "$(dirname "$(realpath "$0")")"
 
-SITE="$PWD/../marv-site"
+VAR="$PWD/../marv-site-var"
 ETC="$PWD/etc"
 ADDONS="$PWD/addons"
 
@@ -12,7 +12,7 @@ ADDONS="$PWD/addons"
     echo "Please set MARV_SCANROOT to directory containing your bags"
     exit 1
 )
-[[ -d "$SITE" ]] || mkdir "$SITE"
+[[ -d "$VAR" ]] || mkdir "$VAR"
 [[ -d "$ETC" ]]
 [[ -d "$ADDONS" ]]
 
@@ -29,6 +29,6 @@ docker run \
        -v "$ETC:/etc/marv" \
        -v "$(realpath "$ADDONS"):/opt/marv/addons" \
        -v "$(realpath "$MARV_SCANROOT"):/scanroot" \
-       -v "$(realpath "$SITE"):/var/lib/marv" \
+       -v "$(realpath "$VAR"):/var/lib/marv" \
        ternaris/marvce
 exec docker logs -f marvce
