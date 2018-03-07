@@ -26,6 +26,7 @@ docker run \
        --hostname marvce \
        --restart unless-stopped \
        --detach \
+       --env "INIT_SITE=1" \
        -p "$HTTP:8000" \
        -p "$HTTPS:8443" \
        -v "$ETC:/etc/marv" \
