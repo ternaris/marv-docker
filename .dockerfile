@@ -32,13 +32,11 @@ ENV MARV_VENV=/opt/marv
 WORKDIR $MARV_VENV
 RUN virtualenv -p python2.7 --system-site-packages .
 RUN bash -c "./bin/pip install -U pip setuptools pip-tools"
-RUN curl -LO https://raw.githubusercontent.com/ternaris/marv-robotics/3f6d689c71e32d81a78424baa15251af8b9bfa7a/requirements.txt
+RUN curl -LO https://raw.githubusercontent.com/ternaris/marv-robotics/ab043815c33269d8b342f1bf6ebe41e41c455359/requirements.txt
 RUN bash -c "source ./bin/activate && pip-sync requirements.txt"
 RUN bash -c "./bin/pip install -U --force-reinstall --no-binary :all: uwsgi"
-RUN bash -c "./bin/pip install --no-deps pycapnp-for-marv marv-cli marv marv-robotics"
+RUN bash -c "./bin/pip install --no-deps pycapnp-for-marv==0.5.9 marv-cli==3.0.0 marv==3.2.0 marv-robotics==3.2.0"
 
-COPY .docker/0001-sessionkey-file.patch $MARV_VENV
-RUN bash -c "cd local/lib/python2.7/site-packages; patch -p1 < $MARV_VENV/0001-sessionkey-file.patch"
 RUN sed -ie 's,sitedir = os.path.dirname(siteconf),sitedir = "/var/lib/marv",' local/lib/python2.7/site-packages/marv/site.py
 
 USER root
